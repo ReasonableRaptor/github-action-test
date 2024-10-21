@@ -1,0 +1,29 @@
+name: Append Time to Log
+
+# Run this action every day at midnight UTC
+on:
+  schedule:
+    - cron: '30 * * * *'
+
+jobs:
+  append_time:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Append the current time to the log file
+      - name: Append current time to log
+        run: |
+          echo $(date) >> time_log.txt
+
+      # Step 3: Commit and push the changes
+      - name: Commit changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add time_log.txt
+          git commit -m "Updated time log: $(date)"
+          git push
