@@ -3,7 +3,7 @@ name: Append Time to Log
 # Run this action every day at midnight UTC
 on:
   schedule:
-    - cron: '22 * * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   append_time_v2:
@@ -24,6 +24,7 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git pull
           git add time_log.txt
           git commit -m "Updated time log: $(date)"
           git push
