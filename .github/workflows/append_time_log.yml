@@ -3,7 +3,7 @@ name: Append Time to Log
 # Run this action every day at midnight UTC
 on:
   schedule:
-    - cron: '30 * * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   append_time:
