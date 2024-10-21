@@ -6,7 +6,7 @@ on:
     - cron: '*/10 * * * *'
 
 jobs:
-  append_time:
+  append_time_v2:
     runs-on: ubuntu-latest
 
     steps:
