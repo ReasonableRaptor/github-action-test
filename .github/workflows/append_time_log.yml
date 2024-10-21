@@ -19,7 +19,7 @@ jobs:
         run: |
           echo $(date) >> time_log.txt
 
-      # Step 3: Commit and push the changes
+      # Step 3: Commit and push the changes using GITHUB_TOKEN
       - name: Commit changes
         run: |
           git config --local user.name "github-actions[bot]"
@@ -27,3 +27,5 @@ jobs:
           git add time_log.txt
           git commit -m "Updated time log: $(date)"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
