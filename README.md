@@ -1,2 +1,2 @@
 # github-action-test
-Small test repo to tiker with guthub actions
+Small test repo to tinker with guthub actions
