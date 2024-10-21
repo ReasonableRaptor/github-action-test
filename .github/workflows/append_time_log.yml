@@ -13,20 +13,26 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure the entire history is fetched
 
-      # Step 2: Append the current time to the log file
+      # Step 2: Pull the latest changes from the remote
+      - name: Pull latest changes
+        run: |
+          git pull origin main
+
+      # Step 3: Append the current time to the log file
       - name: Append current time to log
         run: |
           echo $(date) >> time_log.txt
 
-      # Step 3: Commit and push the changes using GITHUB_TOKEN
-      - name: Commit changes
+      # Step 4: Commit and push the changes using GITHUB_TOKEN
+      - name: Commit and push changes
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git pull
           git add time_log.txt
-          git commit -m "Updated time log: $(date)"
-          git push
+          git commit -m "Updated time log: $(date)" || echo "No changes to commit"
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
